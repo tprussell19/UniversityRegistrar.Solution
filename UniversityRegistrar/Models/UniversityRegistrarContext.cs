@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Template.Models
+namespace UniversityRegistrar.Models
 {
-  public class TemplateContext : DbContext
+  public class UniversityRegistrarContext : DbContext
   {
     public virtual DbSet<Model> Models { get; set; }
 
-    public TemplateContext(DbContextOptions options) : base(options) { }
+    public UniversityRegistrarContext(DbContextOptions options) : base(options) { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

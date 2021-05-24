@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Template.Models;
+using UniversityRegistrar.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Template.Controllers
+namespace UniversityRegistrar.Controllers
 {
   public class ModelsController : Controller
   {
-    private readonly TemplateContext _db;
+    private readonly UniversityRegistrarContext _db;
 
-    public ModelsController(TemplateContext db)
+    public ModelsController(UniversityRegistrarContext db)
     {
       _db = db;
     }
