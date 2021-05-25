@@ -14,20 +14,44 @@
 
   @Html.LabelFor(model => model.Name, new {@class="form-label"})
   @Html.EditorFor(model => model.Name, new {@class="form-control"})
+  <br>
 
   @Html.LabelFor(model => model.Number, new {@class="form-label"})
   @Html.EditorFor(model => model.Number, new {@class="form-control"})
+  <br>
 
   @Html.LabelFor(model => model.Credits, new {@class="form-label"})
   @Html.EditorFor(model => model.Credits, new {@class="form-control", type="number"})
+  <br>
 
   @Html.LabelFor(model => model.StartDate, new {@class="form-label"})
   @Html.EditorFor(model => model.StartDate, new {@class="form-control", type="date"})
+  <br>
 
   @Html.LabelFor(model => model.EndDate, new {@class="form-label"})
   @Html.EditorFor(model => model.EndDate, new {@class="form-control", type="date"})
+  <br>
 
-  <input type="submit" value="Add new course" class="btn btn-outline-primary" />
+  <h4>Registered students:</h4>
+  <ul>
+  @foreach (var join in Model.JoinEntities)
+    {
+      <li>
+        @join.Student.Name
+        <br>
+        | (WIP) Checkbox method: @Html.CheckBox("StudentId", new { value = "@join.Student.StudentId"})
+        <br>
+        | Button/form method: @using (Html.BeginForm("RemoveStudent", "Courses"))
+        {
+          @Html.Hidden("joinId", @join.CourseStudentId)
+          <input type="submit" value="Delete" />
+        }
+      </li>
+    }
+  </ul>
+  <br>
+
+  <input type="submit" value="Save changes" class="btn btn-outline-primary" />
 }
 
 <p>@Html.ActionLink("Back to list", "Index")</p>

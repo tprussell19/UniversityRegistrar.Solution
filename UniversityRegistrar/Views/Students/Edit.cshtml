@@ -16,7 +16,31 @@
   @Html.EditorFor(model => model.Name)
   <br>
 
-  <input type="submit" value="Save" />
+  @Html.LabelFor(model => model.EnrollmentDate)
+  @Html.TextBoxFor(model => model.EnrollmentDate, new { type="date" })
+  <br>
+
+  @if (@Model.JoinEntities.Count == 0)
+  {
+    <p>No courses assigned to this student</p>
+  }
+  else
+  {
+    <h4>Courses:</h4>
+    <ul>
+  @foreach (var join in Model.JoinEntities)
+      {
+        <li>
+          @join.Course.Number
+          | @join.Course.Name | Delete?
+          <input type="checkbox" name="courseIds" value="@join.Course.CourseId" />
+        </li>
+      }
+    </ul>
+    <br>
+
+    <input type="submit" value="Save" />
+  }
 }
 
 <p>@Html.ActionLink("Back to student list", "Index")</p>

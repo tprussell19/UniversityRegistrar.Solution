@@ -57,21 +57,12 @@ namespace UniversityRegistrar.Controllers
     }
 
     [HttpPost]
-    public ActionResult Edit(Student student, int CourseId)
+    public ActionResult Edit(Student student, int[] courseIds)
     {
-      CourseStudent joinTableEntry = null;
-      try
+      foreach (int courseId in courseIds)
       {
-        joinTableEntry = _db.CourseStudent.Where(entry => entry.StudentId == student.StudentId && entry.CourseId == CourseId).Single();
-      }
-      catch
-      {
-        // Console.WriteLine("Doesn't exist in CourseStudent table");
-      }
-
-      if (CourseId != 0 && joinTableEntry == null)
-      {
-        _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
+        CourseStudent joinEntry = _db.CourseStudent.Where(entry => entry.StudentId == student.StudentId && entry.CourseId == courseId).Single();
+        _db.CourseStudent.Remove(joinEntry);
       }
 
       _db.Entry(student).State = EntityState.Modified;
@@ -89,21 +80,22 @@ namespace UniversityRegistrar.Controllers
     [HttpPost]
     public ActionResult AddCourse(Student student, int CourseId)
     {
-      // CourseStudent joinTableEntry = null;
-      // try
-      // {
-      //   joinTableEntry = _db.CourseStudent.Where(entry => entry.StudentId == student.StudentId && entry.CourseId == CourseId).Single();
-      // }
-      // catch
-      // {
-      //   // Console.WriteLine("Doesn't exist in CourseStudent table");
-      // }
+      CourseStudent joinTableEntry = null;
+      try
+      {
+        joinTableEntry = _db.CourseStudent.Where(entry => entry.StudentId == student.StudentId && entry.CourseId == CourseId).Single();
+      }
+      catch
+      {
+        // Console.WriteLine("Doesn't exist in CourseStudent table");
+      }
 
-      if (CourseId != 0)
+
+      if (CourseId != 0 && joinTableEntry == null)
       {
         _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
+        _db.SaveChanges();
       }
-      _db.SaveChanges();
       return RedirectToAction("Index");
     }
 

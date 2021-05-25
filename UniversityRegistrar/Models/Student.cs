@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace UniversityRegistrar.Models
 {
@@ -7,6 +8,8 @@ namespace UniversityRegistrar.Models
   {
     public int StudentId { get; set; }
     public string Name { get; set; }
+
+    [Display(Name = "Enrollment Date")]
     public DateTime EnrollmentDate { get; set; } = DateTime.Now;
 
     public virtual ICollection<CourseStudent> JoinEntities { get; }
