@@ -1,3 +1,33 @@
 @{
   Layout = "_Layout";
 }
+
+@model UniversityRegistrar.Models.Course;
+
+<h2>Edit</h2>
+
+<h4>Edit this course: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.CourseId)
+
+  @Html.LabelFor(model => model.Name, new {@class="form-label"})
+  @Html.EditorFor(model => model.Name, new {@class="form-control"})
+
+  @Html.LabelFor(model => model.Number, new {@class="form-label"})
+  @Html.EditorFor(model => model.Number, new {@class="form-control"})
+
+  @Html.LabelFor(model => model.Credits, new {@class="form-label"})
+  @Html.EditorFor(model => model.Credits, new {@class="form-control", type="number"})
+
+  @Html.LabelFor(model => model.StartDate, new {@class="form-label"})
+  @Html.EditorFor(model => model.StartDate, new {@class="form-control", type="date"})
+
+  @Html.LabelFor(model => model.EndDate, new {@class="form-label"})
+  @Html.EditorFor(model => model.EndDate, new {@class="form-control", type="date"})
+
+  <input type="submit" value="Add new course" class="btn btn-outline-primary" />
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>

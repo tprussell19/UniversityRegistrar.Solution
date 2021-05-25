@@ -1,3 +1,25 @@
 @{
   Layout = "_Layout";
 }
+
+@using UniversityRegistrar.Models;
+
+<h1>Courses</h1>
+
+@if (@Model.Count == 0)
+{
+  <h3>No courses have been added yet. Are you sure you're running a university?</h3>
+}
+
+else
+{
+  <ul>
+  @foreach (Course course in Model)
+    {
+      <li>@Html.ActionLink($"{course.Name}", "Details", new { id = course.CourseId })</li>
+    }
+  </ul>
+}
+
+<p>@Html.ActionLink("Add a new course", "Create")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
