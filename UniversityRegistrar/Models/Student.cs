@@ -1,14 +1,15 @@
 using System;
+using System.Collections.Generic;
 
-namespace UniversityRegistrarContext.Models
+namespace UniversityRegistrar.Models
 {
   public class Student
   {
-    public int StudentId {get; set;}
-    public string Name {get; set;}
-    public DateTime EnrollmentDate {get; set;} = DateTime.Now;
+    public int StudentId { get; set; }
+    public string Name { get; set; }
+    public DateTime EnrollmentDate { get; set; } = DateTime.Now;
 
-    public virtual ICollection<CourseStudent> JoinEntities {get;}
+    public virtual ICollection<CourseStudent> JoinEntities { get; }
 
     public Student()
     {

@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace UniversityRegistrar.Controllers
 {
-  public class ModelsController : Controller
+  public class StudentsController : Controller
   {
     private readonly UniversityRegistrarContext _db;
 
-    public ModelsController(UniversityRegistrarContext db)
+    public StudentsController(UniversityRegistrarContext db)
     {
       _db = db;
     }
@@ -27,7 +27,7 @@ namespace UniversityRegistrar.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create()
+    public ActionResult Create(Student student)
     {
       return RedirectToAction("Index");
     }

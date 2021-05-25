@@ -25,7 +25,7 @@ namespace UniversityRegistrar
       services.AddMvc();
 
       services.AddEntityFrameworkMySql()
-        .AddDbContext<TemplateContext>(options => options
+        .AddDbContext<UniversityRegistrarContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
     }
 
@@ -40,7 +40,7 @@ namespace UniversityRegistrar
       });
 
       app.UseStaticFiles();
-      
+
       app.Run(async (context) =>
       {
         await context.Response.WriteAsync("ERROR - PAGE NOT FOUND");
