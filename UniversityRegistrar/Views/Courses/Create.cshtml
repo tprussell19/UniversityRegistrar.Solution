@@ -22,6 +22,10 @@
   @Html.LabelFor(model => model.EndDate, new {@class="form-label"})
   @Html.TextBoxFor(model => model.EndDate, new {@class="form-control", type="date"})
 
+  @Html.Label("Department")
+  @Html.DropDownList("DepartmentId")
+  <br>
+
   <input type="submit" value="Add new course" class="btn btn-outline-primary" />
 }
 <p>@Html.ActionLink("Show all courses", "Index")</p>

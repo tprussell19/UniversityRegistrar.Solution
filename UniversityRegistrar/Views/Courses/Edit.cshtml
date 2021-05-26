@@ -32,6 +32,10 @@
   @Html.EditorFor(model => model.EndDate, new {@class="form-control", type="date"})
   <br>
 
+  @Html.Label("Department")
+  @Html.DropDownList("DepartmentId")
+  <br>
+
   <h4>Registered students:</h4>
   <ul>
   @foreach (var join in Model.JoinEntities)

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using UniversityRegistrar.Models;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace UniversityRegistrar.Controllers
 
     public ActionResult Create()
     {
+      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");
       return View();
     }
 
@@ -46,6 +48,7 @@ namespace UniversityRegistrar.Controllers
     public ActionResult Edit(int id)
     {
       var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");
       return View(thisCourse);
     }
 
@@ -89,14 +92,21 @@ namespace UniversityRegistrar.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddDepartment(Course course, int DepartmentId)
+    public ActionResult AddDepartment(Course course)
     {
-      if (DepartmentId != 0)
-      {
-        _db.Departments.Add(new Department() { DepartmentId = DepartmentId });
-        _db.SaveChanges();
-      }
+      _db.Entry(course).State = EntityState.Modified;
+      _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult DeleteDepartment(int id)
+    {
+      Course selectedCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      selectedCourse.DepartmentId = null;
+      _db.Entry(selectedCourse).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Details", id);
     }
   }
 }

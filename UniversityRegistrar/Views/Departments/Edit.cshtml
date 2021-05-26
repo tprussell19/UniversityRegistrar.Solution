@@ -1,0 +1,65 @@
+@{
+  Layout = "_Layout";
+}
+
+@model UniversityRegistrar.Models.Department;
+
+<h2>Edit</h2>
+
+<h4>Department: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.DepartmentId)
+
+  @Html.LabelFor(model => model.Name)
+  @Html.EditorFor(model => model.Name)
+  <br>
+
+  @Html.LabelFor(model => model.Abbreviation)
+  @Html.EditorFor(model => model.Abbreviation)
+  <br>
+
+  @if (@Model.Courses.Count == 0)
+  {
+    <p>No courses assigned under this department</p>
+  }
+  else
+  {
+    <h4>Courses:</h4>
+    <ul>
+  @foreach (var join in Model.Courses)
+      {
+        <li>
+          @join.Number
+          | @join.Name | Delete?
+          <input type="checkbox" name="courseIds" value="@join.CourseId" />
+        </li>
+      }
+    </ul>
+    <br>
+  }
+
+  @if (@Model.Students.Count == 0)
+  {
+    <p>No students assigned under this department</p>
+  }
+  else
+  {
+    <h4>Students:</h4>
+    <ul>
+  @foreach (var join in Model.Students)
+      {
+        <li>
+          @join.Name | Delete?
+          <input type="checkbox" name="studentIds" value="@join.StudentId" />
+        </li>
+      }
+    </ul>
+    <br>
+  }
+
+  <input type="submit" value="Save" />
+}
+
+<p>@Html.ActionLink("Back to department list", "Index")</p>

@@ -25,6 +25,7 @@ namespace UniversityRegistrar.Controllers
     public ActionResult Create()
     {
       ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "Name");
+      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");
       return View();
     }
 
@@ -45,6 +46,7 @@ namespace UniversityRegistrar.Controllers
       Student selectedStudent = _db.Students
         .Include(student => student.JoinEntities)
         .ThenInclude(join => join.Course)
+        .Include(student => student.Department)
         .FirstOrDefault(student => student.StudentId == id);
       return View(selectedStudent);
     }
@@ -53,6 +55,7 @@ namespace UniversityRegistrar.Controllers
     {
       Student selectedStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
       ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "Name");
+      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");
       return View(selectedStudent);
     }
 
@@ -67,7 +70,7 @@ namespace UniversityRegistrar.Controllers
 
       _db.Entry(student).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new {id = student.StudentId});
     }
 
     public ActionResult AddCourse(int id)
@@ -139,10 +142,11 @@ namespace UniversityRegistrar.Controllers
     }
 
     [HttpPost]
-    public ActionResult DeleteDepartment(int)
+    public ActionResult DeleteDepartment(int id)
     {
-      CourseStudent joinEntry = _db.CourseStudent.FirstOrDefault(entry => entry.CourseStudentId == joinId);
-      _db.CourseStudent.Remove(joinEntry);
+      Student selectedStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
+      selectedStudent.DepartmentId = null;
+      _db.Entry(selectedStudent).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }

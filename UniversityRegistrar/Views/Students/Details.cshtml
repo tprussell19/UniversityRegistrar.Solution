@@ -7,6 +7,16 @@
 <h2>Student Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+<h4>@Html.DisplayNameFor(model => model.EnrollmentDate): @Html.DisplayFor(model => model.EnrollmentDate)</h4>
+
+@if (@Model.DepartmentId == null)
+{
+  <h4>Department: Undecided</h4>
+}
+else
+{
+  <h4>Department: @Html.DisplayFor(model => model.Department.Name)</h4>
+}
 
 @if (@Model.JoinEntities.Count == 0)
 {

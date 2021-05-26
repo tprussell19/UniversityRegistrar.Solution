@@ -20,6 +20,10 @@
   @Html.TextBoxFor(model => model.EnrollmentDate, new { type="date" })
   <br>
 
+  @Html.Label("Department")
+  @Html.DropDownList("DepartmentId")
+  <br>
+
   @if (@Model.JoinEntities.Count == 0)
   {
     <p>No courses assigned to this student</p>
@@ -38,9 +42,8 @@
       }
     </ul>
     <br>
-
-    <input type="submit" value="Save" />
   }
+  <input type="submit" value="Save" />
 }
 
 <p>@Html.ActionLink("Back to student list", "Index")</p>

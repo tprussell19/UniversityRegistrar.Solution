@@ -45,7 +45,10 @@ namespace UniversityRegistrar.Controllers
 
     public ActionResult Edit(int id)
     {
-      var selectedDepartment = _db.Departments.FirstOrDefault(department => department.DepartmentId == id);
+      var selectedDepartment = _db.Departments
+        .Include(department => department.Students)
+        .Include(department => department.Courses)
+        .FirstOrDefault(department => department.DepartmentId == id);
       return View(selectedDepartment);
     }
 

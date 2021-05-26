@@ -10,6 +10,8 @@ namespace UniversityRegistrar.Models
     public string Name { get; set; }
 
     [Display(Name = "Enrollment Date")]
+    [DataType(DataType.Date)]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
     public DateTime EnrollmentDate { get; set; } = DateTime.Now;
     public int? DepartmentId { get; set; }
     public virtual Department Department { get; set; }
