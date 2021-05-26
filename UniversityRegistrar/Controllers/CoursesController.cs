@@ -80,5 +80,23 @@ namespace UniversityRegistrar.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AddDepartment(int id)
+    {
+      Course selectedCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      ViewBag.DepartmentId = new SelectList(_db.Departments, "DepartmentId", "Name");
+      return View(selectedCourse);
+    }
+
+    [HttpPost]
+    public ActionResult AddDepartment(Course course, int DepartmentId)
+    {
+      if (DepartmentId != 0)
+      {
+        _db.Departments.Add(new Department() { DepartmentId = DepartmentId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Index");
+    }
   }
 }
