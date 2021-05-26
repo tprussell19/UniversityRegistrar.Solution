@@ -99,7 +99,7 @@ namespace UniversityRegistrar.Controllers
         _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
         _db.SaveChanges();
       }
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = student.StudentId});
     }
 
     public ActionResult Delete(int id)
@@ -123,7 +123,7 @@ namespace UniversityRegistrar.Controllers
       CourseStudent joinEntry = _db.CourseStudent.FirstOrDefault(entry => entry.CourseStudentId == joinId);
       _db.CourseStudent.Remove(joinEntry);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new { id = joinEntry.StudentId});
     }
 
     public ActionResult AddDepartment(int id)

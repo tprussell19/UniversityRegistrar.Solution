@@ -53,11 +53,25 @@ namespace UniversityRegistrar.Controllers
     }
 
     [HttpPost]
-    public ActionResult Edit(Department department)
+    public ActionResult Edit(Department department, int[] courseIds, int[] studentIds)
     {
+      foreach (int studentId in studentIds)
+      {
+        Student studentEntry = _db.Students.Where(entry => entry.StudentId == studentId).Single();
+        studentEntry.DepartmentId = null;
+        _db.Entry(studentEntry).State = EntityState.Modified;
+      }
+
+      foreach (int courseId in courseIds)
+      {
+        Course courseEntry = _db.Courses.Where(entry => entry.CourseId == courseId).Single();
+        courseEntry.DepartmentId = null;
+        _db.Entry(courseEntry).State = EntityState.Modified;
+      }
+
       _db.Entry(department).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new {id = department.DepartmentId});
     }
 
     public ActionResult Delete(int id)
@@ -73,6 +87,16 @@ namespace UniversityRegistrar.Controllers
       _db.Departments.Remove(selectedDepartment);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult DeleteCourse(int departmentId, int courseId)
+    {
+      Course selectedCourse = _db.Courses.FirstOrDefault(course => course.CourseId == courseId);
+      selectedCourse.DepartmentId = null;
+      _db.Entry(selectedCourse).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Details", new {id = departmentId});
     }
   }
 }

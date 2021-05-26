@@ -111,7 +111,7 @@ namespace UniversityRegistrar.Controllers
       selectedCourse.DepartmentId = null;
       _db.Entry(selectedCourse).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Details", id);
+      return RedirectToAction("Details", new {id = selectedCourse.CourseId});
     }
   }
 }
