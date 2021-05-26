@@ -11,6 +11,8 @@ namespace UniversityRegistrar.Models
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public int Credits { get; set; }
+    public int? DepartmentId { get; set; }
+    public virtual Department Department { get; set; }
 
     public virtual ICollection<CourseStudent> JoinEntities { get; }
 

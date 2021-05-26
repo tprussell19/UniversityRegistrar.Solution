@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityRegistrar.Models;
 
 namespace UniversityRegistrar.Migrations
 {
     [DbContext(typeof(UniversityRegistrarContext))]
-    partial class UniversityRegistrarContextModelSnapshot : ModelSnapshot
+    [Migration("20210526171852_AddDepartmentTableAndFramework")]
+    partial class AddDepartmentTableAndFramework
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,7 @@ namespace UniversityRegistrar.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
@@ -92,7 +94,7 @@ namespace UniversityRegistrar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EnrollmentDate")
@@ -112,7 +114,9 @@ namespace UniversityRegistrar.Migrations
                 {
                     b.HasOne("UniversityRegistrar.Models.Department", "Department")
                         .WithMany("Courses")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Department");
                 });
@@ -140,7 +144,9 @@ namespace UniversityRegistrar.Migrations
                 {
                     b.HasOne("UniversityRegistrar.Models.Department", "Department")
                         .WithMany("Students")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Department");
                 });

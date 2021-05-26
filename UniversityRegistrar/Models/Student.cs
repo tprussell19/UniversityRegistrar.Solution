@@ -11,6 +11,8 @@ namespace UniversityRegistrar.Models
 
     [Display(Name = "Enrollment Date")]
     public DateTime EnrollmentDate { get; set; } = DateTime.Now;
+    public int? DepartmentId { get; set; }
+    public virtual Department Department { get; set; }
 
     public virtual ICollection<CourseStudent> JoinEntities { get; }
 
