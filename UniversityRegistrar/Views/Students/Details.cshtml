@@ -15,7 +15,7 @@
 }
 else
 {
-  <h4>Department: @Html.DisplayFor(model => model.Department.Name)</h4>
+  <h4>Department: @Html.ActionLink($"{@Model.Department.Name}", "Details", "Departments", new { id = @Model.DepartmentId})</h4>
 }
 
 @if (@Model.JoinEntities.Count == 0)
@@ -30,7 +30,7 @@ else
     {
       <li>
         @join.Course.Number
-        | @join.Course.Name
+        | @Html.ActionLink($"{join.Course.Name}", "Details", "Courses", new { id = join.Course.CourseId })
         | @using (Html.BeginForm("DeleteCourse", "Students"))
         {
           @Html.Hidden("joinId", @join.CourseStudentId)

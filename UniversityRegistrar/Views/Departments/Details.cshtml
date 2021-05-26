@@ -22,7 +22,7 @@ else
     {
       <li>
         @Html.ActionLink($"{course.Name}", "Details", "Courses", new { id = course.CourseId})
-        | @using (Html.BeginForm("RemoveCourse", "Courses"))
+        | @using (Html.BeginForm("DeleteCourse", "Courses"))
         {
           <input type="submit" value="Delete" class="btn btn-outline-danger"/>
         }

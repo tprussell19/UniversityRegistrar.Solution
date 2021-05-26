@@ -41,15 +41,8 @@
   @foreach (var join in Model.JoinEntities)
     {
       <li>
-        @join.Student.Name
-        <br>
-        | (WIP) Checkbox method: @Html.CheckBox("StudentId", new { value = "@join.Student.StudentId"})
-        <br>
-        | Button/form method: @using (Html.BeginForm("RemoveStudent", "Courses"))
-        {
-          @Html.Hidden("joinId", @join.CourseStudentId)
-          <input type="submit" value="Delete" />
-        }
+        @join.Student.Name | Delete?
+        <input type="checkbox" name="studentIds" value="@join.Student.StudentId" />
       </li>
     }
   </ul>

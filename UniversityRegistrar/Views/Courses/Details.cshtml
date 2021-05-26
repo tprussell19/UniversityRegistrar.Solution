@@ -21,7 +21,7 @@ else
     {
       <li>
         @Html.ActionLink($"{join.Student.Name}", "Details", "Students", new { id = join.Student.StudentId})
-        | @using (Html.BeginForm("RemoveStudent", "Students"))
+        | @using (Html.BeginForm("DeleteStudent", "Courses"))
         {
           @Html.Hidden("joinId", @join.CourseStudentId)
           <input type="submit" value="Delete" />

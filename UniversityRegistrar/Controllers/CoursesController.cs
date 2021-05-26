@@ -53,11 +53,16 @@ namespace UniversityRegistrar.Controllers
     }
 
     [HttpPost]
-    public ActionResult Edit(Course course)
+    public ActionResult Edit(Course course, int[] studentIds)
     {
+      foreach (int studentId in studentIds)
+      {
+        CourseStudent joinEntry = _db.CourseStudent.Where(entry => entry.CourseId == course.CourseId && entry.StudentId == studentId).Single();
+        _db.CourseStudent.Remove(joinEntry);
+      }
       _db.Entry(course).State = EntityState.Modified;
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new {id = course.CourseId});
     }
 
     public ActionResult Delete(int id)
@@ -76,7 +81,7 @@ namespace UniversityRegistrar.Controllers
     }
 
     [HttpPost]
-    public ActionResult RemoveStudent(int joinId)
+    public ActionResult DeleteStudent(int joinId)
     {
       CourseStudent joinEntry = _db.CourseStudent.FirstOrDefault(entry => entry.CourseStudentId == joinId);
       _db.CourseStudent.Remove(joinEntry);
